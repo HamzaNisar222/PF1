@@ -42,6 +42,7 @@ $books = $crud->ReadBooks();
         <table border="1" id="books">
             <thead>
                 <tr>
+                    <th>Sr no</th>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Published Date</th>
@@ -54,6 +55,11 @@ $books = $crud->ReadBooks();
             <tbody>
                 <?php foreach ($books as $book): ?>
                     <tr>
+                        <?php
+                        $a=0;
+                        $a=$a+1;
+                        ?>
+                        <td><?php echo $a;?></td>
                         <td><?php echo htmlspecialchars($book['title']); ?></td>
                         <td><?php echo htmlspecialchars($book['author']); ?></td>
                         <td><?php echo htmlspecialchars($book['published_date']); ?></td>

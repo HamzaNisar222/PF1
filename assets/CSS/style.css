@@ -1,7 +1,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: blue!important;
+    background-color: rgba(255, 126, 126, 0.995)!important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    background-color: blueviolet;
+    background-color: blanchedalmond!important;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -36,11 +36,11 @@ body {
 }
 .form-group input[type="submit"] {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: aliceblue !important;
     color: white;
     border: none;
     cursor: pointer;
 }
 .form-group input[type="submit"]:hover {
-    background-color: black;
+    background-color: skyblue!important;
 }

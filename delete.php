@@ -8,6 +8,7 @@ if (isset($_GET['id'])) {
     if ($crud->deleteBook($book_id)) {
         $successMessage = 'Book deleted successfully';
         header("Location: index.php?success=" . urlencode($successMessage));
+        
     } else {
         $errorMessage = 'Failed to delete book';
         header("Location: index.php?error=" . urlencode($errorMessage));
