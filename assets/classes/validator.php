@@ -13,11 +13,15 @@ class Validator{
 
       if(empty($data['title'])){
         $errors[]="title must not be empty";
+      }elseif(!preg_match("/^[a-zA-Z0-9\s\-\,\.\']{1,255}$/", $data['title'])){
+        $errors[]="Title must be a valid Title";
       }
 
      //   author validation
       if(empty($data['author'])){
         $errors[]="author must not be empty";
+      }elseif(!preg_match("/^[a-zA-Z\s\-]{1,100}$/",$data['author'])){
+        $errors[]="author must be a valid name";
       }
       
      //   Date Validation
@@ -29,7 +33,9 @@ class Validator{
      // gener validation
       if (empty($data['genre'])) {
         $errors[] = 'Genre is required.';
-     }
+     }elseif (!preg_match("/^[a-zA-Z\s\-]{1,50}$/", $data['genre'])) {
+      $errors[] = "Genre must contain only letters and spaces";
+         }
      // Price validation
      if (empty($data['price']) || !is_numeric($data['price']) || $data['price'] < 0) {
         $errors[] = 'Valid price is required.';

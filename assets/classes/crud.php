@@ -17,11 +17,13 @@ class crud extends Database{
         
         // Use pg_query_params for parameterized query to prevent SQL injection
         $result = pg_query_params($this->con, $query, array($title, $author, $published_date, $genre, $price));
-
+    
         if (!$result) {
-            die("Error inserting book: " . pg_last_error($this->con));
+            // Return false if the query fails
+            return false;
         } else {
-            echo "Book added successfully!";
+            // Return true if the query succeeds
+            return true;
         }
     }
     

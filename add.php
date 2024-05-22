@@ -1,12 +1,10 @@
 <?php
+session_start();
 require_once __DIR__ . '/assets/classes/db.php';
 require_once __DIR__ . '/assets/classes/crud.php';
 require_once __DIR__ . '/assets/classes/validator.php';
 
-
 $crud = new crud();
-
-$successMessage ='';
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,14 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $errors = Validator::validateFormData($data);
     if (empty($errors)) {
-        $crud->addBook($data['title'], $data['author'], $data['published_date'], $data['genre'], $data['price']);
-        $successMessage='Book added successfully';
-        header("Location: index.php?success=" . urlencode($successMessage));
+        if ($crud->addBook($data['title'], $data['author'], $data['published_date'], $data['genre'], $data['price'])) {
+            $_SESSION['successMessage'] = 'Book added successfully';
+        } else {
+            $_SESSION['errorMessage'] = 'Book not added successfully';
+        }
+        $crud->close();
+        header("Location: index.php");
+        exit();
+    } else {
+        $_SESSION['errorMessage'] = implode('<br>', $errors);
+        header("Location: add.php");
         exit();
     }
 }
 
-// If there are errors or it's the first load, render the form
 $crud->close();
 ?>
 
@@ -44,10 +49,7 @@ $crud->close();
 <body>
     <div class="wrapper" style="width:100%;">
     <header style="position:fixed; top:0; width:100%;">
-        <?php
-        
-       include './components/header.php';
-        ?>
+        <?php include './components/header.php'; ?>
     </header>
     <main>
     <div class="container">

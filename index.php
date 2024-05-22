@@ -1,14 +1,21 @@
 <?php
+session_start();
 require_once __DIR__ . '/assets/classes/db.php';
 require_once __DIR__ . '/assets/classes/crud.php';
 
 $crud = new crud();
-$successMessage = '';
 
-if (isset($_GET['success'])) {
-    $successMessage = $_GET['success'];
+// Check for success message
+if (isset($_SESSION['successMessage'])) {
+    $successMessage = $_SESSION['successMessage'];
+    unset($_SESSION['successMessage']); // Clear the session variable
 }
 
+// Check for error message
+if (isset($_SESSION['errorMessage'])) {
+    $errorMessage = $_SESSION['errorMessage'];
+    unset($_SESSION['errorMessage']); // Clear the session variable
+}
 $books = $crud->ReadBooks();
 ?>
 
@@ -36,9 +43,13 @@ $books = $crud->ReadBooks();
   <div class="container">
         <h2>Books</h2>
         <a href="add.php"><i class="fa-solid fa-plus"></i></a>
-        <?php if ($successMessage): ?>
-            <div id="successMessage" class="alert alert-success"><?php echo htmlspecialchars($successMessage); ?></div>
+        <?php if (isset($successMessage)): ?>
+          <div class="alert alert-success" id="successMessage"><?php echo htmlspecialchars($successMessage); ?></div>
         <?php endif; ?>
+          
+       <?php if (isset($errorMessage)): ?>
+        <div class="alert alert-danger" id="errorMessage"><?php echo htmlspecialchars($errorMessage); ?></div>
+       <?php endif; ?>
         <table border="1" id="books">
             <thead>
                 <tr>
@@ -53,12 +64,13 @@ $books = $crud->ReadBooks();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($books as $book): ?>
+                <?php 
+                $a=0;
+                foreach ($books as $book): 
+                $a++;    
+                ?>
                     <tr>
-                        <?php
-                        $a=0;
-                        $a=$a+1;
-                        ?>
+                     
                         <td><?php echo $a;?></td>
                         <td><?php echo htmlspecialchars($book['title']); ?></td>
                         <td><?php echo htmlspecialchars($book['author']); ?></td>
@@ -86,18 +98,9 @@ $books = $crud->ReadBooks();
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('#books').DataTable();
-        });
-
-        // JavaScript to remove the success message after 5 seconds
-        setTimeout(function() {
-            var successMessage = document.getElementById('successMessage');
-            if (successMessage) {
-                successMessage.remove();
-            }
-        }, 5000); // Adjust the time (in milliseconds) as needed
+    <script src="./assets/Js/main.js">
+       
+        
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
