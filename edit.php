@@ -1,11 +1,13 @@
 <?php
+session_start();
 require_once __DIR__ . '/assets/classes/db.php';
 require_once __DIR__ . '/assets/classes/crud.php';
 require_once __DIR__ . '/assets/classes/validator.php';
 
 $crud = new crud();
 $book = null;
-$errorMessage = '';
+$errorMessage='';
+
 
 if (isset($_GET['id'])) {
     $book_id = $_GET['id'];
@@ -27,13 +29,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $validationErrors = Validator::validateFormData($data);
     if (empty($validationErrors)) {
-        // Update the book if validation passes
-        $crud->updateBook($book_id, $data['title'], $data['author'], $data['published_date'], $data['genre'], $data['price']);
-        $successMessage = 'Book updated successfully';
-        header("Location: index.php?success=" . urlencode($successMessage));
+       
+        if($crud->updateBook($book_id, $data['title'], $data['author'], $data['published_date'], $data['genre'], $data['price'])){
+          $_SESSION['successMessage'] = 'Book updated successfully';
+        }else{
+            $_SESSION['errorMessage'] = 'Book not updated successfully';
+        }
+        
+        header("Location: index.php");
         exit();
     } else {
-        // Concatenate validation errors into a single error message string
         $errorMessage = implode('<br>', $validationErrors);
     }
 }

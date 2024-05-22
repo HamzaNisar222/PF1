@@ -40,7 +40,7 @@ $books = $crud->ReadBooks();
         ?>
     </header>
   <main>
-  <div class="container">
+  <div class="container mt-5">
         <h2>Books</h2>
         <a href="add.php"><i class="fa-solid fa-plus"></i></a>
         <?php if (isset($successMessage)): ?>

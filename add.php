@@ -52,7 +52,7 @@ $crud->close();
         <?php include './components/header.php'; ?>
     </header>
     <main>
-    <div class="container">
+    <div class="container" style="margin-top:100px;">
         <h2>Add a New Book</h2>
         <?php if (!empty($errors)) {
             foreach ($errors as $error) {
