@@ -26,10 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $crud->close();
         header("Location: index.php");
         exit();
-    } else {
-        $_SESSION['errorMessage'] = implode('<br>', $errors);
-        header("Location: add.php");
-        exit();
     }
 }
 
