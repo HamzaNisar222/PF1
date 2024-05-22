@@ -34,6 +34,7 @@ $crud->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,47 +43,49 @@ $crud->close();
     <link rel="stylesheet" href="./assets/CSS/style.css">
     <title>Add Book</title>
 </head>
+
 <body>
     <div class="wrapper" style="width:100%;">
-    <header style="position:fixed; top:0; width:100%;">
-        <?php include './components/header.php'; ?>
-    </header>
-    <main>
-    <div class="container" style="margin-top:100px;">
-        <h2>Add a New Book</h2>
-        <?php if (!empty($errors)) {
-            foreach ($errors as $error) {
-                echo "<span style='color:red;'>$error</span>";
-            }
-        } ?>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
+        <header style="position:fixed; top:0; width:100%;">
+            <?php include './components/header.php'; ?>
+        </header>
+        <main>
+            <div class="container" style="margin-top:100px;">
+                <h2>Add a New Book</h2>
+                <?php if (!empty($errors)) {
+                    foreach ($errors as $error) {
+                        echo "<span style='color:red;'>$error</span>";
+                    }
+                } ?>
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="published_date">Published Date:</label>
+                        <input type="date" id="published_date" name="published_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre:</label>
+                        <input type="text" id="genre" name="genre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" step="0.01" id="price" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add Book">
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author" required>
-            </div>
-            <div class="form-group">
-                <label for="published_date">Published Date:</label>
-                <input type="date" id="published_date" name="published_date" required>
-            </div>
-            <div class="form-group">
-                <label for="genre">Genre:</label>
-                <input type="text" id="genre" name="genre" required>
-            </div>
-            <div class="form-group">
-                <label for="price">Price:</label>
-                <input type="number" step="0.01" id="price" name="price" required>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Add Book">
-            </div>
-        </form>
-    </div>
-    </main>
+        </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>
